@@ -70,7 +70,7 @@ class JobScraper:
 
 if __name__ == "__main__":
     """
-    Main function to run the job scraping script.
+    Driver function to run the job scraping script.
     """
     parser = argparse.ArgumentParser(
         description="Scrape job listings from a website and save them to a CSV file."
