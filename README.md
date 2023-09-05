@@ -17,6 +17,8 @@ pip install -r requirements.txt
 
 ```bash
 python main.py
+python week1/web_scraping/scrape_fake_python.py
+python week1/web_scraping/scrape_fake_python.py --url https://realpython.github.io/fake-jobs/ --output-filename ./outputs/job_data.csv
 ```
 
 # Links to Study Documents
