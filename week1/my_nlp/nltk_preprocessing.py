@@ -3,8 +3,22 @@ import pandas as pd
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
+
+from my_nltk.my_nltk_module import (
+    tokenize_words,
+    tokenize_sentence,
+    lower_casing,
+    remove_stop_words,
+    stemming,
+    lemmatization,
+)
+from text_preprocessing.text_preprocessing import (
+    remove_html_tags,
+    remove_emojis,
+    remove_urls,
+    convert_emoticons_to_words,
+)
 
 # Download NLTK data (if not already downloaded)
 nltk.download("punkt")
@@ -22,20 +36,29 @@ def preprocess_text(text):
     Returns:
         str: The preprocessed text.
     """
+    # Remove HTML tags
+    text = remove_html_tags(text)
+
+    # Remove emojis and emoticons
+    text = remove_emojis(text)
+
+    # Convert emoticons to words
+    text = convert_emoticons_to_words(text)
+
+    # Remove URLs
+    text = remove_urls(text)
+
     # Tokenize words
-    words = word_tokenize(text)
+    words = tokenize_words(text)
+
+    # Convert words to lowercase
+    words = [lower_casing(word) for word in words]
 
     # Remove stopwords
-    stop_words = set(stopwords.words("english"))
-    words = [word for word in words if word.lower() not in stop_words]
+    words = remove_stop_words(" ".join(words))
 
-    # Perform stemming
-    stemmer = PorterStemmer()
-    words = [stemmer.stem(word) for word in words]
-
-    # Perform lemmatization
-    lemmatizer = WordNetLemmatizer()
-    words = [lemmatizer.lemmatize(word) for word in words]
+    # # Perform lemmatization and extract lemmatized words
+    # lemmatized_words = [lemma for _, lemma in lemmatization(" ".join(words))]
 
     # Join the processed words back into a sentence
     processed_text = " ".join(words)
@@ -45,9 +68,7 @@ def preprocess_text(text):
 
 def main():
     # Retrieve input and output file paths from environment variables
-    input_file_path = os.getenv(
-        "INPUT_FILE_PATH", "./data/quotes_scraped.csv"
-    )
+    input_file_path = os.getenv("INPUT_FILE_PATH", "./data/quotes_scraped.csv")
     output_file_path = os.getenv(
         "OUTPUT_FILE_PATH", "./outputs/quotes_scraped_cleaned.csv"
     )
