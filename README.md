@@ -16,7 +16,6 @@ pip install -r requirements.txt
 # Example Usages
 
 ```bash
-python main.py
 python week1/web_scraping/scrape_fake_python.py
 python week1/web_scraping/scrape_fake_python.py --url https://realpython.github.io/fake-jobs/ --output-filename ./outputs/job_data.csv
 
@@ -26,7 +25,10 @@ python week1/web_scraping/scrape_quotes.py --url https://quotes.toscrape.com/ --
 python week1/my_nlp/my_nltk/my_nltk_module.py
 python week1/my_nlp/my_nltk/my_nltk_module.py --text "This is a custom sentence on which we can perform text processing."
 
-python ./week1/my_nlp/text_preprocessing/nltk_preprocessing.py
+python week1/my_nlp/nltk_preprocessing.py
+
+python week1/my_nlp/my_spacy/my_spacy_module.py
+python3 week1/my_nlp/my_spacy/my_spacy_module.py --text "The quick black fox dropped over the lazy dog"
 ```
 
 # Project Folder structure (Week1)

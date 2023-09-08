@@ -6,6 +6,8 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from nltk.probability import FreqDist
 
 # Download NLTK data
 nltk.download("punkt")
@@ -14,6 +16,7 @@ nltk.download("averaged_perceptron_tagger")
 nltk.download("maxent_ne_chunker")
 nltk.download("words")
 nltk.download("wordnet")
+nltk.download("vader_lexicon")
 
 
 def tokenize_words(text):
@@ -151,6 +154,39 @@ def named_entity_recognizer(text, binary_entity=True):
     return entities_labels
 
 
+def sentiment_analysis(text):
+    """
+    Perform sentiment analysis on the input text and return a sentiment score.
+
+    Args:
+        text (str): The input text.
+
+    Returns:
+        float: A sentiment score ranging from -1 (negative) to 1 (positive).
+    """
+    analyzer = SentimentIntensityAnalyzer()
+    sentiment_scores = analyzer.polarity_scores(text)
+    return sentiment_scores["compound"]
+
+
+from nltk.probability import FreqDist
+
+
+def word_frequency_analysis(text):
+    """
+    Analyze the frequency of words in the input text and return a frequency distribution.
+
+    Args:
+        text (str): The input text.
+
+    Returns:
+        nltk.FreqDist: A frequency distribution of words.
+    """
+    words = word_tokenize(text)
+    freq_dist = FreqDist(words)
+    return freq_dist
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="NLP Text Processing")
     parser.add_argument(
@@ -182,3 +218,12 @@ if __name__ == "__main__":
     entities_labels = named_entity_recognizer(sample_text, False)
     entities_df = pd.DataFrame(entities_labels, columns=["Entities", "Labels"])
     print("Displaying Entities in Tabular format:\n", entities_df)
+
+    # Word Frequency Analysis
+    freq_dist = word_frequency_analysis(sample_text)
+    print("Word Frequency Analysis:")
+    print(freq_dist.most_common())
+
+    # Sentiment Analysis
+    sentiment_score = sentiment_analysis(sample_text)
+    print("Sentiment Analysis Score:", sentiment_score)
