@@ -62,4 +62,5 @@ week1/
 
 # Links to Study Documents
 
--   [Documentation and Study Materials [ClickUp]](https://doc.clickup.com/9007106573/d/h/8cdv2gd-724/26501a3c91d321d)
+-   [Web Scraping and RNNs [ClickUp]](https://doc.clickup.com/9007106573/d/h/8cdv2gd-724/26501a3c91d321d)
+-   [Milvus [ClickUp]](https://doc.clickup.com/9007106573/d/h/8cdv2gd-744/21994044e659e0b)
